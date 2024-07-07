@@ -51,6 +51,44 @@ class LinkedList{
         this.length--
         return temp
     }
+    unshift(value){
+        const newNode = new Node(value);
+        if(!this.head){
+            this.head = newNode;
+            this.tail =  newNode;
+        }else{
+            newNode.next=this.head
+            this.head=newNode
+        }
+        this.length++
+        return this
+    }
+    shift(){
+        if(!this.head){
+            return undefined
+        }
+        let temp=this.head
+        this.head=this.head.next
+        this.length--
+        if(this.length===0){
+            this.tail =  null;
+        }
+        temp.next= null
+        return temp
+    }
+    get(index){
+        if(index<0 || index>this.length-1){
+            return undefined
+        }
+        let temp = this.head
+        for(let i=0 ; i<index; i++){
+            temp= temp.next
+        }if(this.length===1){
+            return temp
+        }
+        temp.next=null
+        return temp
+    }
 
 }
 let mylinkedList = new LinkedList(13);

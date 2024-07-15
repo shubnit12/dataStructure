@@ -21,7 +21,7 @@ class DoublyLinkedList{
             this.tail=newNode
         }else{
             this.tail.next=newNode
-            newNode.perv=this.tail
+            newNode.prev=this.tail
             this.tail=newNode
         }
             this.length++
@@ -39,16 +39,115 @@ class DoublyLinkedList{
             this.tail=null
         }else{
             
-            this.tail=this.tail.perv
+            this.tail=this.tail.prev
             this.tail.next=null
-            temp.perv=null
+            temp.prev=null
             
         }
 
         this.length--;
         return temp
     }
+    unshift(value){
+        let newNode = new Node(value);
+        if(this.length===0){
+            this.head=newNode
+            this.tail=newNode
+        }else{
+            newNode.next=this.head
+            this.head.prev=newNode
+            this.head=newNode
+        }
+        this.length++
+        return this
+    }
+    shift(){
+        if(this.length===0){
+            return undefined
+        }
+        let temp=this.head
+        if(this.length===1){
+            this.head=null
+            this.tail=null
+        }else{
+            this.head=this.head.next
+            this.head.prev=null
+            temp.next=null
+        }
+        this.length--
+        return temp
+    }
+    get(index){
+        if(index<0 || index>=this.length){
+            return null
+        }
+        if(index<this.length/2){
+            let temp= this.head
+            for(let i=0;i<index;i++){
+                temp=temp.next
+            }
+            return temp
+        }else{
+            let temp= this.tail
+            for(let i=this.length-1;i>index;i--){
+                temp=temp.perv
+            }
+            return temp
+
+        }
+    }
+    set(value,index){
+        let temp=this.get(index)
+        if(temp){
+           
+            temp.value=value
+            return true
+        }
+        return false
+       
+    }
+    insert(value,index){
+        if(index===0){
+           return this.unshift(value)
+        }
+        if(index===this.length-1){
+            return push(value)
+        }
+        if(index<0 || index>=this.length){
+            return null
+        }
+        let newNode= new Node(value)
+        let temp = get(index)
+        let before = get(index-1)
+        before.next=newNode
+        newNode.perv=before
+        newNode.next=temp
+        temp.perv=newNode
+
+        this.length++
+        return this
+
+    }
+    remove(index){
+        if(index<0 || index>=this.length){
+            return null
+        }
+        if(index===0){
+            return this.shift()
+         }
+         if(index===this.length-1){
+             return pop()
+         }
+         let temp = get(index)
+         temp.perv.next=temp.next
+         temp.next.perv=temp.perv
+         temp.next=null
+         temp.perv=null
+         this.length--
+         return temp
+         
+    }
 }
 
-let myDLL = new DoublyLinkedList(13)
+let myDLL = new DoublyLinkedList(1)
 console.log(myDLL)

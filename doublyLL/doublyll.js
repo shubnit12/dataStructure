@@ -9,7 +9,7 @@ class Node{
 }
 class DoublyLinkedList{
     constructor(value){
-        let newNode = new Node(value)
+        const newNode = new Node(value)
         this.head = newNode
         this.tail = newNode
         this.length = 1

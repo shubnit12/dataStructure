@@ -9,4 +9,11 @@ function insertionSort(array) {
   }
   return array;
 }
-console.log(insertionSort([4, 2, 6, 5, 1, 3]));
+let array = [];
+for (let i = 0; i < 100000; i++) {
+  array.push(Math.floor(Math.random() * 100000000));
+}
+const time1 = new Date();
+console.log(insertionSort(array));
+const time2 = new Date();
+console.log("insertionSort Time", time2 - time1);
